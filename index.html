@@ -1,0 +1,338 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Little World for Gouga ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  overflow: hidden;
+  background: radial-gradient(circle at top, #302044, #100d20 65%, #080713);
+  color: white;
+  font-family: 'Cormorant Garamond', serif;
+}
+
+#stars {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+.container {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 25px;
+}
+
+.moon {
+  position: absolute;
+  top: 9%;
+  right: 12%;
+  font-size: 48px;
+  filter: drop-shadow(0 0 18px #ffe7a8);
+  animation: moon 4s ease-in-out infinite;
+}
+
+.small-title {
+  color: #e8c9ed;
+  letter-spacing: 5px;
+  font-size: 12px;
+  margin-bottom: 25px;
+  animation: appear 2s both;
+}
+
+h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(65px, 15vw, 105px);
+  color: #ffbde1;
+  font-weight: normal;
+  text-shadow: 0 0 15px #ff77c9, 0 0 40px #b85bff;
+  animation: name 2s ease both;
+}
+
+.subtitle {
+  font-size: 19px;
+  color: #e5d5e9;
+  line-height: 1.8;
+  margin: 15px 0 30px;
+  animation: appear 3s both;
+}
+
+.envelope {
+  font-size: 75px;
+  cursor: pointer;
+  margin: 10px;
+  filter: drop-shadow(0 0 20px #ff9bd6);
+  animation: envelope 2s ease-in-out infinite;
+  transition: .4s;
+}
+
+.envelope:hover {
+  transform: scale(1.25) rotate(8deg);
+}
+
+button {
+  margin-top: 20px;
+  padding: 14px 28px;
+  border: 1px solid #ffc5e6;
+  border-radius: 40px;
+  background: #ffffff12;
+  color: white;
+  font-family: inherit;
+  font-size: 19px;
+  cursor: pointer;
+  box-shadow: 0 0 20px #e47bc955;
+  transition: .4s;
+}
+
+button:hover {
+  background: #eaa3d4;
+  color: #27152c;
+  transform: scale(1.08);
+}
+
+.bottom {
+  position: absolute;
+  bottom: 25px;
+  color: #b8a5c8;
+  font-size: 13px;
+  letter-spacing: 2px;
+}
+
+.heart {
+  position: fixed;
+  bottom: -30px;
+  z-index: 1;
+  animation: floatUp linear forwards;
+  pointer-events: none;
+}
+
+#message {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  background: #100b20f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+  opacity: 0;
+  visibility: hidden;
+  transition: 1s;
+}
+
+#message.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.message-card {
+  max-width: 450px;
+  padding: 35px 25px;
+  text-align: center;
+  border: 1px solid #e9b5db77;
+  border-radius: 20px;
+  background: linear-gradient(145deg,#30203d,#171329);
+  box-shadow: 0 0 50px #dc85c933;
+  transform: translateY(30px);
+  transition: 1s;
+}
+
+#message.show .message-card {
+  transform: translateY(0);
+}
+
+.message-card h2 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 48px;
+  color: #ffbde1;
+  margin-bottom: 20px;
+}
+
+.message-card p {
+  font-size: 20px;
+  line-height: 1.8;
+  color: #eee0f0;
+}
+
+@keyframes moon {
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes envelope {
+  0%,100% { transform: translateY(0) rotate(-4deg); }
+  50% { transform: translateY(-14px) rotate(4deg); }
+}
+
+@keyframes name {
+  from { opacity: 0; transform: scale(.6); filter: blur(15px); }
+  to { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes floatUp {
+  to {
+    transform: translateY(-110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="stars"></canvas>
+<div class="moon">☾</div>
+
+<div class="container">
+
+  <div class="small-title">A LITTLE UNIVERSE MADE WITH LOVE</div>
+
+  <h1>Gouga</h1>
+
+  <p class="subtitle">
+    Some people make our world<br>
+    a little more beautiful... ❤️
+  </p>
+
+  <div class="envelope" onclick="openMessage()">💌</div>
+
+  <p style="color:#e9b8dd;font-size:16px;">
+    There's something I want you to read...
+  </p>
+
+  <button onclick="openMessage()">
+    Open your little surprise ♡
+  </button>
+
+  <div class="bottom">
+    MADE WITH LOVE · JUST FOR YOU
+  </div>
+
+</div>
+
+<div id="message" onclick="closeMessage()">
+  <div class="message-card" onclick="event.stopPropagation()">
+    <h2>For you, Gouga ♡</h2>
+
+    <p>
+      Asslema , nchllh tkouny cv 🥺 
+      awlarra nab9a periode hakke manasma3 3lik chay 💔
+      periode s3iba barcha 😞 
+      tbadlet barcha 7ajet amme 7eja wa7da b9et fix 🥺
+      twa7chtek barchaa 😭 kol draj nog3dou biny w bin rou7y net4akrek 🥹
+      gouly l t7ebby mayhemnich amme berrasmy blastek may3abbiha 7ad 😔
+      w moch bech iji 7ad inajm yamla l fara8 l n7es bih ki nabda manich m3k ❤️‍🩹 
+      belli 7awlt neb3d chyyy 🥹 8ra9t mn awl rencontre binetna 🥹 
+      8ro9t ki sma3t 4a7ktek ❤️ ki rit 3inik 🥹
+      kol man2ayes w nef9ed l amal nejbed ak lbracelet w nab9a no8zerlou b se3a marrat 🥺
+      twa7chtek w rabby ya3lm 😭 enty goltily chouf 7ytk 💔 
+      w ena gotlk ma3ndich 7yet man8irek 🥺 mat7ebinich , manich fares a7lamek kima golty 9bal 💔 
+      amme bech nab9a fidele l fekra heki 🥹 w bech nab9a nestanna 7atta ken enty meme paa t5ami fiya ,
+      ena bech nab9a nestana fik 🥺...
+      Mana3rch yomken m3dch 3andy l7a9 na7ki hakke 🥹 
+      yomken tsara3t chway amme m3dch najm nosket ❤️‍🩹 dzl ... 
+      Taw narja3 ne5tafi 💔
+      
+      Some people enter our lives
+      and leave beautiful memories
+      without even knowing how special
+      they have become. ❤️
+      <br><br>
+      And you are one of those people...
+      🥹
+    </p>
+
+    <button onclick="closeMessage()">Close ♡</button>
+  </div>
+</div>
+
+<script>
+// Stars background
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
+
+let stars = [];
+
+function resize() {
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+
+  stars = Array.from({length:120}, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 1.8,
+    a: Math.random()
+  }));
+}
+
+function drawStars() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  stars.forEach(s => {
+    s.a += 0.015;
+
+    ctx.beginPath();
+    ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fillStyle = `rgba(255,225,255,${0.3 + Math.abs(Math.sin(s.a))*0.7})`;
+    ctx.fill();
+  });
+
+  requestAnimationFrame(drawStars);
+}
+
+resize();
+drawStars();
+window.addEventListener("resize",resize);
+
+// Floating hearts
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = ["♡","💗","✨","💕"][Math.floor(Math.random()*4)];
+
+  heart.style.left = Math.random()*100 + "vw";
+  heart.style.fontSize = (15 + Math.random()*20) + "px";
+  heart.style.animationDuration = (5 + Math.random()*5) + "s";
+
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(),10000);
+}
+
+setInterval(createHeart,500);
+
+// Open surprise
+function openMessage() {
+  document.getElementById("message").classList.add("show");
+}
+
+function closeMessage() {
+  document.getElementById("message").classList.remove("show");
+}
+</script>
+
+</body>
+</html>
