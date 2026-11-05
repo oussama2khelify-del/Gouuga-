@@ -113,6 +113,14 @@ button:hover {
   transform: scale(1.08);
 }
 
+.music-button {
+  margin-top: 25px;
+  font-size: 16px;
+  padding: 11px 22px;
+  border-color: #e7c58b;
+  box-shadow: 0 0 20px #e7c58b44;
+}
+
 .bottom {
   position: absolute;
   bottom: 25px;
@@ -129,7 +137,7 @@ button:hover {
   pointer-events: none;
 }
 
-/* THE MESSAGE WINDOW */
+/* MESSAGE WINDOW */
 
 #message {
   position: fixed;
@@ -185,12 +193,6 @@ button:hover {
   white-space: pre-line;
   overflow-wrap: anywhere;
 }
-
-.message-card button {
-  margin-bottom: 5px;
-}
-
-/* ANIMATIONS */
 
 @keyframes moon {
   50% { transform: translateY(-12px); }
@@ -250,9 +252,16 @@ button:hover {
 <canvas id="stars"></canvas>
 <div class="moon">☾</div>
 
+<!-- MUSIC FILE -->
+<audio id="myMusic" loop preload="none">
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
 <div class="container">
 
-  <div class="small-title">A LITTLE UNIVERSE MADE WITH LOVE</div>
+  <div class="small-title">
+    A LITTLE UNIVERSE MADE WITH LOVE
+  </div>
 
   <h1>Gouga</h1>
 
@@ -271,13 +280,17 @@ button:hover {
     Open your little surprise ♡
   </button>
 
+  <button class="music-button" id="musicButton" onclick="toggleMusic()">
+    ♫ Play our song ❤️
+  </button>
+
   <div class="bottom">
     MADE WITH LOVE · JUST FOR YOU
   </div>
 
 </div>
 
-<!-- YOUR PERSONAL MESSAGE -->
+<!-- PERSONAL MESSAGE -->
 
 <div id="message" onclick="closeMessage()">
 
@@ -285,10 +298,10 @@ button:hover {
 
     <h2>For you, Gouga ♡</h2>
 
-    <p id="personalMessage">
+    <p>
 Asslema, nchllh tkouny cv 🥺
 
-awlarra nab9a periode hakke manasma3 3lik chay 💔
+awl marra nab9a periode hakke manasma3 3lik chay 💔
 
 periode s3iba barcha 😞
 tbadlet barcha 7ajet amme 7eja wa7da b9et fix 🥺
@@ -372,7 +385,7 @@ function drawStars() {
 
     ctx.beginPath();
     ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
-    ctx.fillStyle = `rgba(255,225,255,${0.3 + Math.abs(Math.sin(s.a))*0.7})`;
+    ctx.fillStyle = `rgba(255,225,255,${0.3 + Math.abs(Math.sin(s.a))*0.7)}`;
     ctx.fill();
   });
 
@@ -381,7 +394,6 @@ function drawStars() {
 
 resize();
 drawStars();
-
 window.addEventListener("resize",resize);
 
 
@@ -419,6 +431,35 @@ function openMessage() {
 function closeMessage() {
   document.getElementById("message").classList.remove("show");
 }
+
+
+// MUSIC PLAYER
+
+const music = document.getElementById("myMusic");
+const musicButton = document.getElementById("musicButton");
+
+async function toggleMusic() {
+
+  if (music.paused) {
+
+    try {
+      await music.play();
+      musicButton.innerHTML = "♫ Music is playing ❤️";
+    }
+
+    catch (error) {
+      musicButton.innerHTML = "Tap to play again ♡";
+      alert("Check that music.mp3 is uploaded beside index.html");
+    }
+
+  } else {
+
+    music.pause();
+    musicButton.innerHTML = "♫ Play our song ❤️";
+
+  }
+}
+
 
 // ESCAPE KEY
 
